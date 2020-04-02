@@ -6,58 +6,56 @@ import java.nio.file.Paths;
 
 public class TemperatureInput {
 
+	String module = "";
 	private Integer lineNumber = 1;
 	private String temperatureInputs = null;
 
-	private Integer leftArmTemperatureInput;
-	private Integer rightArmTemperatureInput;
-	private Integer leftlegTemperatureInput;
-	private Integer rightLegTemperatureInput;
-	private Integer chestTemperatureInput;
+	public TemperatureInput(String module) {
+		this.module = module;
+	}
 
-	public void readCurrentTemperatureInputs() {
+	private String[] readCurrentTemperatureInputs() {
 		try {
 			this.temperatureInputs = Files.readAllLines(Paths.get("resource/temperature.csv")).get(this.lineNumber);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String temperatures[] = this.temperatureInputs.split(",");
-
-		this.chestTemperatureInput = Integer.parseInt(temperatures[1]);
-		this.leftArmTemperatureInput = Integer.parseInt(temperatures[2]);
-		this.rightArmTemperatureInput = Integer.parseInt(temperatures[3]);
-		this.leftlegTemperatureInput = Integer.parseInt(temperatures[4]);
-		this.rightLegTemperatureInput = Integer.parseInt(temperatures[5]);
-
 		if (this.lineNumber == 10) {
 			this.lineNumber = 1;
 		} else {
 			this.lineNumber++;
 		}
-		
-		System.out.println("line number is: " + this.lineNumber);
+
+		return this.temperatureInputs.split(",");
 
 	}
 
-	public Integer getLeftArmTemperatureInput() {
-		return leftArmTemperatureInput;
-	}
+	public Integer getCurrentTemperature() {
+		Integer module_index = 0;
+		readCurrentTemperatureInputs();
+		switch (module) {
+		case "chest":
+			module_index = 1;
+			break;
+		case "left_arm":
+			module_index = 2;
+			break;
+		case "right_arm":
+			module_index = 3;
+			break;
+		case "left_leg":
+			module_index = 4;
+			break;
+		case "right_leg":
+			module_index = 5;
+			break;
+		default:
+			System.out.println("somthing bad happened!");
+			break;
+		}
 
-	public Integer getRightArmTemperatureInput() {
-		return rightArmTemperatureInput;
-	}
-
-	public Integer getLeftlegTemperatureInput() {
-		return leftlegTemperatureInput;
-	}
-
-	public Integer getRightLegTemperatureInput() {
-		return rightLegTemperatureInput;
-	}
-
-	public Integer getChestTemperatureInput() {
-		return chestTemperatureInput;
+		return Integer.parseInt(readCurrentTemperatureInputs()[module_index]);
 	}
 
 }

@@ -15,7 +15,7 @@ public class EnviroWear {
 		Display display = new Display();
 
 		Object chestLockObject = new Object();
-		TemperatureInput chestTemperatureInput = new TemperatureInput();
+		TemperatureInput chestTemperatureInput = new TemperatureInput("chest");
 
 		TemperatureThreshold chestTemperatureThreshold = new TemperatureThreshold(display.getMapInfo().get("chest"),
 				display.getMapCtrl().get("chest"), display.getMapProgress().get("chest"),

@@ -2,23 +2,25 @@ package com.asu.envirowear.runable;
 
 import java.awt.Color;
 import javax.swing.JButton;
+
 import com.asu.envirowear.temperature.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureThreshold;
 
 public class ChestReadRunnable implements Runnable {
 
-	Object lockObject = null;
-	TemperatureInput temperatureInput = null;
+	Object lock = null;
+	TemperatureInput chestTemperatureInput = null;
+
 	TemperatureThreshold temperatureThreshold = null;
 	JButton button = null;
 
 	String text = "";
 	Integer currentChessTemperature = 0;
 
-	public ChestReadRunnable(Object lockObject, TemperatureInput temperatureInput,
+	public ChestReadRunnable(Object lock, TemperatureInput chestTemperatureInput,
 			TemperatureThreshold temperatureThreshold, JButton button) {
-		this.lockObject = lockObject;
-		this.temperatureInput = temperatureInput;
+		this.lock = lock;
+		this.chestTemperatureInput = chestTemperatureInput;
 		this.temperatureThreshold = temperatureThreshold;
 		this.button = button;
 		this.text = "Chest";
@@ -28,14 +30,11 @@ public class ChestReadRunnable implements Runnable {
 	@Override
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			synchronized (this.lockObject) {
-
+			synchronized (this.lock) {
 
 				this.temperatureThreshold.resetButtonsText();
-				
-				this.temperatureInput.readCurrentTemperatureInputs();
 
-				currentChessTemperature = temperatureInput.getChestTemperatureInput();
+				currentChessTemperature = chestTemperatureInput.getCurrentTemperature();
 
 				this.temperatureThreshold.setCurrentTemperature(currentChessTemperature);
 
@@ -58,18 +57,17 @@ public class ChestReadRunnable implements Runnable {
 
 				try {
 					System.out.println("going to wait mode...");
-					this.lockObject.wait();
+					this.lock.wait();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
