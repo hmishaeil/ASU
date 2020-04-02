@@ -18,10 +18,7 @@ public class EnviroWear {
 		Object chestLockObject = new Object();
 		TemperatureInput chestTemperatureInput = new TemperatureInput(EnviroWearModule.CHEST);
 
-		TemperatureController chestTemperatureController = new TemperatureController(EnviroWearModule.CHEST,
-				display.getMapInfo().get(EnviroWearModule.CHEST), display.getMapCtrl().get(EnviroWearModule.CHEST),
-				display.getMapProgress().get(EnviroWearModule.CHEST), display.getMapNew().get(EnviroWearModule.CHEST),
-				97, 99);
+		TemperatureController chestTemperatureController = new TemperatureController(EnviroWearModule.CHEST, display);
 
 		ChestReadRunnable chestReadRunnable = new ChestReadRunnable(chestLockObject, chestTemperatureInput,
 				chestTemperatureController, display.getMapReader().get(EnviroWearModule.CHEST));

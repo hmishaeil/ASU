@@ -13,7 +13,8 @@ public class ChestWriteRunnable implements Runnable {
 	TemperatureController temperatureController = null;
 	JButton buttonCtrl = null;
 
-	public ChestWriteRunnable(Object lockObject, TemperatureInput temperatureInput, TemperatureController temperatureController, JButton buttonCtrl) {
+	public ChestWriteRunnable(Object lockObject, TemperatureInput temperatureInput,
+			TemperatureController temperatureController, JButton buttonCtrl) {
 		this.lockObject = lockObject;
 		this.temperatureInput = temperatureInput;
 		this.temperatureController = temperatureController;
@@ -31,30 +32,24 @@ public class ChestWriteRunnable implements Runnable {
 			}
 
 			synchronized (this.lockObject) {
-//				temperatureThreshold.setCurrentTemperature(this.temperatureInput.getChestTemperatureInput());
-
-				TemperatureStatus temperatureStatusRange = this.temperatureController.getCurrentTemperatureRangeStatus();
+				TemperatureStatus temperatureStatusRange = this.temperatureController
+						.getCurrentTemperatureRangeStatus();
 				switch (temperatureStatusRange) {
-
 				case ABOVE_RANGE:
-					System.out.println("above range detected");
 					temperatureController.decreaseTemperature();
 					break;
 				case BELOW_RANGE:
-					System.out.println("below range detected");
 					temperatureController.increaseTemperature();
 					break;
 				case IN_RANGE:
-					System.out.println("in-range detected");
 					temperatureController.temperatureInRange();
-
 					break;
 				default:
 					System.out.println("something bad happened!!!");
 					break;
 				}
 
-				System.out.println("let me wake him up!");
+				System.out.println("notifying...");
 				this.lockObject.notify();
 			}
 		}

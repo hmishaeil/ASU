@@ -2,14 +2,15 @@ package com.asu.envirowear.temperature;
 
 import javax.swing.JButton;
 
+import com.asu.envirowear.common.EnviroWearModule;
+import com.asu.envirowear.panel.Display;
+
 public class TemperatureController {
 
 	JButton buttonInfo;
 	JButton buttonCtrl;
 	JButton buttonProgress;
 	JButton buttonNew;
-	private Integer minTemperature = 0;
-	private Integer maxTemperature = 0;
 	private Integer currentTemperature = 0;
 	String module = "";
 
@@ -17,17 +18,15 @@ public class TemperatureController {
 		ABOVE_RANGE, BELOW_RANGE, IN_RANGE
 	}
 
-	public TemperatureController(String module, JButton buttonInfo, JButton buttonCtrl, JButton buttonProgress,
-			JButton buttonNew, Integer min, Integer max) {
-		this.buttonInfo = buttonInfo;
-		this.buttonCtrl = buttonCtrl;
-		this.buttonProgress = buttonProgress;
-		this.buttonNew = buttonNew;
-		this.minTemperature = min;
-		this.maxTemperature = max;
+	public TemperatureController(String module, Display display) {
+		this.buttonInfo = display.getMapInfo().get(EnviroWearModule.CHEST);
+		this.buttonCtrl = display.getMapCtrl().get(EnviroWearModule.CHEST);
+		this.buttonProgress = display.getMapProgress().get(EnviroWearModule.CHEST);
+		this.buttonNew = display.getMapNew().get(EnviroWearModule.CHEST);
 		this.module = module;
 
-		this.buttonInfo.setText(this.module + " [" + this.minTemperature + ", " + this.maxTemperature + "]");
+		this.buttonInfo.setText(this.module + " [" + EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD + ", "
+				+ EnviroWearModule.CHEST_MAX_TEMEPERATURE_THRESHOLD + "]");
 
 		this.buttonProgress.setText("N/A");
 		this.buttonNew.setText("N/A");
@@ -41,26 +40,10 @@ public class TemperatureController {
 		this.currentTemperature = currentTemperature;
 	}
 
-	public Integer getMinTemperature() {
-		return minTemperature;
-	}
-
-	public void setMinTemperature(Integer minTemperature) {
-		this.minTemperature = minTemperature;
-	}
-
-	public Integer getMaxTemperature() {
-		return maxTemperature;
-	}
-
-	public void setMaxTemperature(Integer maxTemperature) {
-		this.maxTemperature = maxTemperature;
-	}
-
 	public TemperatureStatus getCurrentTemperatureRangeStatus() {
-		if (this.currentTemperature < this.minTemperature) {
+		if (this.currentTemperature < EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD) {
 			return TemperatureStatus.BELOW_RANGE;
-		} else if (this.currentTemperature > this.maxTemperature) {
+		} else if (this.currentTemperature > EnviroWearModule.CHEST_MAX_TEMEPERATURE_THRESHOLD) {
 			return TemperatureStatus.ABOVE_RANGE;
 		} else {
 			return TemperatureStatus.IN_RANGE;
@@ -68,17 +51,15 @@ public class TemperatureController {
 	}
 
 	public void decreaseTemperature() {
-		int unit = this.currentTemperature - this.maxTemperature;
+		int unit = this.currentTemperature - EnviroWearModule.CHEST_MAX_TEMEPERATURE_THRESHOLD;
 
-		this.buttonCtrl
-				.setText("Decreasing Temperature from " + this.currentTemperature + " to " + this.maxTemperature);
+		this.buttonCtrl.setText("Decreasing Temperature from " + this.currentTemperature + " to "
+				+ EnviroWearModule.CHEST_MAX_TEMEPERATURE_THRESHOLD);
 
 		this.buttonProgress.setText("In Progress...");
 
 		while (unit > 0) {
 			try {
-				System.out
-						.println("decreasing: current: " + this.currentTemperature + " target: " + this.maxTemperature);
 
 				Thread.sleep(1000);
 				this.currentTemperature--;
@@ -92,22 +73,21 @@ public class TemperatureController {
 
 		}
 		this.buttonProgress.setText("DONE!");
-//		this.buttonNew.setText(Integer.toString(this.maxTemperature));
 
 	}
 
 	public void increaseTemperature() {
-		int unit = this.minTemperature - this.currentTemperature;
+		int unit = EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD - this.currentTemperature;
 
 		this.buttonCtrl
-				.setText("Increasing Temperature from " + this.currentTemperature + " to " + this.minTemperature);
+				.setText("Increasing Temperature from " + this.currentTemperature + " to " + EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD);
 		this.buttonProgress.setText("In Progress...");
 
 		while (unit > 0) {
 			try {
 				Thread.sleep(1000);
 				System.out
-						.println("increasing: current: " + this.currentTemperature + " target: " + this.minTemperature);
+						.println("increasing: current: " + this.currentTemperature + " target: " + EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD);
 				this.currentTemperature++;
 				unit--;
 				this.buttonNew.setText(Integer.toString(this.currentTemperature));
@@ -116,7 +96,6 @@ public class TemperatureController {
 			}
 
 		}
-//		this.buttonNew.setText(Integer.toString(this.minTemperature));
 		this.buttonProgress.setText("DONE!");
 	}
 
