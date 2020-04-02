@@ -4,24 +4,24 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 import com.asu.envirowear.input.TemperatureInput;
-import com.asu.envirowear.temperature.TemperatureThreshold;
+import com.asu.envirowear.temperature.TemperatureController;
 
 public class ChestReadRunnable implements Runnable {
 
 	Object lock = null;
 	TemperatureInput chestTemperatureInput = null;
 
-	TemperatureThreshold temperatureThreshold = null;
+	TemperatureController temperatureController = null;
 	JButton button = null;
 
 	String text = "";
 	Integer currentChessTemperature = 0;
 
 	public ChestReadRunnable(Object lock, TemperatureInput chestTemperatureInput,
-			TemperatureThreshold temperatureThreshold, JButton button) {
+			TemperatureController temperatureController, JButton button) {
 		this.lock = lock;
 		this.chestTemperatureInput = chestTemperatureInput;
-		this.temperatureThreshold = temperatureThreshold;
+		this.temperatureController = temperatureController;
 		this.button = button;
 		this.text = "Chest";
 
@@ -32,15 +32,15 @@ public class ChestReadRunnable implements Runnable {
 		while (!Thread.currentThread().isInterrupted()) {
 			synchronized (this.lock) {
 
-				this.temperatureThreshold.resetButtonsText();
+				this.temperatureController.resetButtonsText();
 
 				currentChessTemperature = chestTemperatureInput.getCurrentTemperature();
 
-				this.temperatureThreshold.setCurrentTemperature(currentChessTemperature);
+				this.temperatureController.setCurrentTemperature(currentChessTemperature);
 
 				this.button.setText(Integer.toString(currentChessTemperature));
 
-				switch (this.temperatureThreshold.getCurrentTemperatureRangeStatus()) {
+				switch (this.temperatureController.getCurrentTemperatureRangeStatus()) {
 				case ABOVE_RANGE:
 					this.button.setForeground(new Color(255, 0, 0));
 					break;

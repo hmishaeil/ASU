@@ -2,7 +2,7 @@ package com.asu.envirowear.temperature;
 
 import javax.swing.JButton;
 
-public class TemperatureThreshold {
+public class TemperatureThreshold2 {
 
 	JButton buttonInfo;
 	JButton buttonCtrl;
@@ -16,7 +16,7 @@ public class TemperatureThreshold {
 		ABOVE_RANGE, BELOW_RANGE, IN_RANGE
 	}
 
-	public TemperatureThreshold(JButton buttonInfo, JButton buttonCtrl, JButton buttonProgress, JButton buttonNew,
+	public TemperatureThreshold2(JButton buttonInfo, JButton buttonCtrl, JButton buttonProgress, JButton buttonNew,
 			Integer min, Integer max) {
 		this.buttonInfo = buttonInfo;
 		this.buttonCtrl = buttonCtrl;

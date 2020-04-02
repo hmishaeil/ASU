@@ -3,21 +3,20 @@ package com.asu.envirowear.runable;
 import javax.swing.JButton;
 
 import com.asu.envirowear.input.TemperatureInput;
-import com.asu.envirowear.temperature.TemperatureThreshold;
-import com.asu.envirowear.temperature.TemperatureThreshold.TemperatureStatus;
+import com.asu.envirowear.temperature.TemperatureController;
+import com.asu.envirowear.temperature.TemperatureController.TemperatureStatus;
 
 public class ChestWriteRunnable implements Runnable {
 
 	Object lockObject = null;
 	TemperatureInput temperatureInput = null;
-	TemperatureThreshold temperatureThreshold = null;
+	TemperatureController temperatureController = null;
 	JButton buttonCtrl = null;
 
-	public ChestWriteRunnable(Object lockObject, TemperatureInput temperatureInput,
-			TemperatureThreshold temperatureThreshold, JButton buttonCtrl) {
+	public ChestWriteRunnable(Object lockObject, TemperatureInput temperatureInput, TemperatureController temperatureController, JButton buttonCtrl) {
 		this.lockObject = lockObject;
 		this.temperatureInput = temperatureInput;
-		this.temperatureThreshold = temperatureThreshold;
+		this.temperatureController = temperatureController;
 		this.buttonCtrl = buttonCtrl;
 	}
 
@@ -34,20 +33,20 @@ public class ChestWriteRunnable implements Runnable {
 			synchronized (this.lockObject) {
 //				temperatureThreshold.setCurrentTemperature(this.temperatureInput.getChestTemperatureInput());
 
-				TemperatureStatus temperatureStatusRange = this.temperatureThreshold.getCurrentTemperatureRangeStatus();
+				TemperatureStatus temperatureStatusRange = this.temperatureController.getCurrentTemperatureRangeStatus();
 				switch (temperatureStatusRange) {
 
 				case ABOVE_RANGE:
 					System.out.println("above range detected");
-					temperatureThreshold.decreaseTemperature();
+					temperatureController.decreaseTemperature();
 					break;
 				case BELOW_RANGE:
 					System.out.println("below range detected");
-					temperatureThreshold.increaseTemperature();
+					temperatureController.increaseTemperature();
 					break;
 				case IN_RANGE:
 					System.out.println("in-range detected");
-					temperatureThreshold.temperatureInRange();
+					temperatureController.temperatureInRange();
 
 					break;
 				default:

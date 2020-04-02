@@ -1,8 +1,11 @@
 package com.asu.envirowear.input;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import com.asu.envirowear.common.EnviroWearModule;
 
 public class TemperatureInput {
 
@@ -33,21 +36,22 @@ public class TemperatureInput {
 
 	public Integer getCurrentTemperature() {
 		Integer module_index = 0;
-		readCurrentTemperatureInputs();
+		String[] temperatures = readCurrentTemperatureInputs();
+
 		switch (module) {
-		case "chest":
+		case EnviroWearModule.CHEST:
 			module_index = 1;
 			break;
-		case "left_arm":
+		case EnviroWearModule.LEFT_ARM:
 			module_index = 2;
 			break;
-		case "right_arm":
+		case EnviroWearModule.RIGHT_ARM:
 			module_index = 3;
 			break;
-		case "left_leg":
+		case EnviroWearModule.LEFT_LEG:
 			module_index = 4;
 			break;
-		case "right_leg":
+		case EnviroWearModule.RIGHT_LEG:
 			module_index = 5;
 			break;
 		default:
@@ -55,7 +59,7 @@ public class TemperatureInput {
 			break;
 		}
 
-		return Integer.parseInt(readCurrentTemperatureInputs()[module_index]);
+		return Integer.parseInt(temperatures[module_index]);
 	}
 
 }
