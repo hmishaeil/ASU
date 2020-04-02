@@ -1,9 +1,9 @@
 package com.asu.envirowear.app;
 
+import com.asu.envirowear.input.TemperatureInput;
 import com.asu.envirowear.panel.Display;
 import com.asu.envirowear.runable.ChestReadRunnable;
 import com.asu.envirowear.runable.ChestWriteRunnable;
-import com.asu.envirowear.temperature.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureThreshold;
 import com.asu.envirowear.thread.ChestReadThread;
 import com.asu.envirowear.thread.ChestWriteThread;

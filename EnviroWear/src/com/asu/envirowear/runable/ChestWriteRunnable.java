@@ -2,7 +2,7 @@ package com.asu.envirowear.runable;
 
 import javax.swing.JButton;
 
-import com.asu.envirowear.temperature.TemperatureInput;
+import com.asu.envirowear.input.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureThreshold;
 import com.asu.envirowear.temperature.TemperatureThreshold.TemperatureStatus;
 

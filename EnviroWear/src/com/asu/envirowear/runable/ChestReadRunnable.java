@@ -3,7 +3,7 @@ package com.asu.envirowear.runable;
 import java.awt.Color;
 import javax.swing.JButton;
 
-import com.asu.envirowear.temperature.TemperatureInput;
+import com.asu.envirowear.input.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureThreshold;
 
 public class ChestReadRunnable implements Runnable {
