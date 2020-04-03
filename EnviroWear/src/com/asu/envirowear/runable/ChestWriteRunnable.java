@@ -2,6 +2,7 @@ package com.asu.envirowear.runable;
 
 import javax.swing.JButton;
 
+import com.asu.envirowear.common.EnviroWearModule;
 import com.asu.envirowear.input.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureController;
 import com.asu.envirowear.temperature.TemperatureController.TemperatureStatus;
@@ -14,11 +15,11 @@ public class ChestWriteRunnable implements Runnable {
 	JButton buttonCtrl = null;
 
 	public ChestWriteRunnable(Object lockObject, TemperatureInput temperatureInput,
-			TemperatureController temperatureController, JButton buttonCtrl) {
+			TemperatureController temperatureController) {
 		this.lockObject = lockObject;
 		this.temperatureInput = temperatureInput;
 		this.temperatureController = temperatureController;
-		this.buttonCtrl = buttonCtrl;
+		this.buttonCtrl = this.temperatureController.getDisplay().getMapCtrl().get(EnviroWearModule.CHEST);
 	}
 
 	@Override

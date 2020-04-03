@@ -3,7 +3,9 @@ package com.asu.envirowear.runable;
 import java.awt.Color;
 import javax.swing.JButton;
 
+import com.asu.envirowear.common.EnviroWearModule;
 import com.asu.envirowear.input.TemperatureInput;
+import com.asu.envirowear.panel.Display;
 import com.asu.envirowear.temperature.TemperatureController;
 
 public class ChestReadRunnable implements Runnable {
@@ -14,16 +16,14 @@ public class ChestReadRunnable implements Runnable {
 	TemperatureController temperatureController = null;
 	JButton button = null;
 
-	String text = "";
 	Integer currentChessTemperature = 0;
 
 	public ChestReadRunnable(Object lock, TemperatureInput chestTemperatureInput,
-			TemperatureController temperatureController, JButton button) {
+			TemperatureController temperatureController) {
 		this.lock = lock;
 		this.chestTemperatureInput = chestTemperatureInput;
 		this.temperatureController = temperatureController;
-		this.button = button;
-		this.text = "Chest";
+		this.button = this.temperatureController.getDisplay().getMapReader().get(EnviroWearModule.CHEST);
 
 	}
 

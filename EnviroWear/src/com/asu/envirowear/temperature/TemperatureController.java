@@ -13,7 +13,8 @@ public class TemperatureController {
 	JButton buttonNew;
 	private Integer currentTemperature = 0;
 	String module = "";
-
+	Display display;
+	
 	public static enum TemperatureStatus {
 		ABOVE_RANGE, BELOW_RANGE, IN_RANGE
 	}
@@ -25,6 +26,8 @@ public class TemperatureController {
 		this.buttonNew = display.getMapNew().get(EnviroWearModule.CHEST);
 		this.module = module;
 
+		this.display = display;
+		
 		this.buttonInfo.setText(this.module + " [" + EnviroWearModule.CHEST_MIN_TEMEPERATURE_THRESHOLD + ", "
 				+ EnviroWearModule.CHEST_MAX_TEMEPERATURE_THRESHOLD + "]");
 
@@ -32,6 +35,10 @@ public class TemperatureController {
 		this.buttonNew.setText("N/A");
 	}
 
+	public Display getDisplay() {
+		return this.display;
+	}
+	
 	public Integer getCurrentTemperature() {
 		return currentTemperature;
 	}
