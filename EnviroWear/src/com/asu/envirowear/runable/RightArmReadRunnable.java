@@ -4,15 +4,15 @@ import com.asu.envirowear.common.EnviroWearModule;
 import com.asu.envirowear.input.TemperatureInput;
 import com.asu.envirowear.temperature.TemperatureController;
 
-public class ChestReadRunnable implements Runnable {
+public class RightArmReadRunnable implements Runnable {
 
 	Object lock = null;
-	TemperatureInput chestTemperatureInput = null;
+	TemperatureInput rightArmTemperatureInput = null;
 	TemperatureController temperatureController = null;
 
-	public ChestReadRunnable(Object lock, TemperatureController temperatureController) {
+	public RightArmReadRunnable(Object lock, TemperatureController temperatureController) {
 		this.lock = lock;
-		this.chestTemperatureInput = new TemperatureInput(EnviroWearModule.CHEST);
+		this.rightArmTemperatureInput = new TemperatureInput(EnviroWearModule.RIGHT_ARM);
 		this.temperatureController = temperatureController;
 	}
 
@@ -21,7 +21,7 @@ public class ChestReadRunnable implements Runnable {
 		while (!Thread.currentThread().isInterrupted()) {
 			synchronized (this.lock) {
 
-				this.temperatureController.setCurrentTemperature(chestTemperatureInput.getCurrentTemperature());
+				this.temperatureController.setCurrentTemperature(rightArmTemperatureInput.getCurrentTemperature());
 
 				try {
 					this.lock.wait();

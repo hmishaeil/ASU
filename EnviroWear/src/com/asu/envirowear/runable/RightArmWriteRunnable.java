@@ -2,12 +2,12 @@ package com.asu.envirowear.runable;
 
 import com.asu.envirowear.temperature.TemperatureController;
 
-public class ChestWriteRunnable implements Runnable {
+public class RightArmWriteRunnable implements Runnable {
 
 	Object lock = null;
 	TemperatureController temperatureController = null;
 
-	public ChestWriteRunnable(Object lockObject, TemperatureController temperatureController) {
+	public RightArmWriteRunnable(Object lockObject, TemperatureController temperatureController) {
 		this.lock = lockObject;
 		this.temperatureController = temperatureController;
 	}

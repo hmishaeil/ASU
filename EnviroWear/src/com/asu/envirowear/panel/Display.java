@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +18,7 @@ public class Display {
 	private JFrame frame = null;
 	private JPanel panel;
 
-	private JButton headerModuleButton = new JButton("Module/ Temperature Threshold [MIN, MAX]");
+	private JButton headerModuleButton = new JButton();
 
 	private JButton leftArmModuleButton = new JButton(EnviroWearModule.LEFT_ARM);
 	private JButton rightArmModuleButton = new JButton(EnviroWearModule.RIGHT_ARM);
@@ -25,7 +26,7 @@ public class Display {
 	private JButton leftLegModuleButton = new JButton(EnviroWearModule.LEFT_LEG);
 	private JButton rightLegModuleButton = new JButton(EnviroWearModule.RIGHT_LEG);
 
-	private JButton headerCurrentTemperatureButton = new JButton("Current Temperature (\u2109)");
+	private JButton headerCurrentTemperatureButton = new JButton();
 
 	private JButton leftArmCurrentTemperatureButton = new JButton();
 	private JButton rightArmCurrentTemperatureButton = new JButton();
@@ -33,7 +34,7 @@ public class Display {
 	private JButton leftLegCurrentTemperatureButton = new JButton();
 	private JButton rightLegCurrentTemperatureButton = new JButton();
 
-	private JButton headerActionTakenButton = new JButton("Action Taken");
+	private JButton headerActionTakenButton = new JButton();
 
 	private JButton leftArmActionTakenButton = new JButton();
 	private JButton rightArmActionTakenButton = new JButton();
@@ -41,7 +42,7 @@ public class Display {
 	private JButton leftLegActionTakenButton = new JButton();
 	private JButton rightLegActionTakenButton = new JButton();
 
-	private JButton headerProgressStatusButton = new JButton("Process Status");
+	private JButton headerProgressStatusButton = new JButton();
 
 	private JButton leftArmProgressStatusButton = new JButton();
 	private JButton rightArmProgressStatusButton = new JButton();
@@ -49,7 +50,7 @@ public class Display {
 	private JButton leftLegProgressStatusButton = new JButton();
 	private JButton rightLegProgressStatusButton = new JButton();
 
-	private JButton headerUpdatedTemperatureButton = new JButton("Updated Temperature (\u2109)");
+	private JButton headerUpdatedTemperatureButton = new JButton();
 
 	private JButton leftArmUpdatedTemperatureButton = new JButton();
 	private JButton rightArmUpdatedTemperatureButton = new JButton();
@@ -57,6 +58,7 @@ public class Display {
 	private JButton leftLegUpdatedTemperatureButton = new JButton();
 	private JButton rightLegUpdatedTemperatureButton = new JButton();
 
+	private Map<String, JButton> headerButtonsMap = new HashMap<String, JButton>();
 	private Map<String, JButton> moduleButtonsMap = new HashMap<String, JButton>();
 	private Map<String, JButton> currentTemperatureButtonsMap = new HashMap<String, JButton>();
 	private Map<String, JButton> takenActionButtonsMap = new HashMap<String, JButton>();
@@ -64,41 +66,34 @@ public class Display {
 	private Map<String, JButton> updatedTemperatureButtonsMap = new HashMap<String, JButton>();
 
 	public Display() {
-		initFrame();
-		initPanel();
-		initMap();
-		styleInfoButton();
-		draw();
-	}
 
-	public void styleInfoButton() {
-
-		headerModuleButton.setFont(new Font("Arial", Font.BOLD, 14));
-		headerModuleButton.setFocusPainted(false);
-		headerCurrentTemperatureButton.setFont(new Font("Arial", Font.BOLD, 14));
-		headerCurrentTemperatureButton.setFocusPainted(false);
-		headerActionTakenButton.setFont(new Font("Arial", Font.BOLD, 14));
-		headerActionTakenButton.setFocusPainted(false);
-		headerProgressStatusButton.setFont(new Font("Arial", Font.BOLD, 14));
-		headerProgressStatusButton.setFocusPainted(false);
-		headerUpdatedTemperatureButton.setFont(new Font("Arial", Font.BOLD, 14));
-		headerUpdatedTemperatureButton.setFocusPainted(false);
-
-	}
-
-	public void initFrame() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		frame = new JFrame("EnviroWear");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
-	public void initPanel() {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 5));
 		panel.setPreferredSize(new Dimension(1600, 300));
+
+		createButtonMaps();
+
+		draw();
 	}
 
-	public void initMap() {
+	public void createButtonMaps() {
+
+		headerButtonsMap.put("Module/ Temperature Threshold [MIN, MAX]", headerModuleButton);
+		headerButtonsMap.put("Current Temperature (\u2109)", headerCurrentTemperatureButton);
+		headerButtonsMap.put("Action Taken", headerActionTakenButton);
+		headerButtonsMap.put("Progess Status", headerProgressStatusButton);
+		headerButtonsMap.put("Updated Temperature (\u2109)", headerUpdatedTemperatureButton);
+
+		for (Entry<String, JButton> entry : headerButtonsMap.entrySet()) {
+			entry.getValue().setFont(new Font("Arial", Font.BOLD, 14));
+			entry.getValue().setFocusPainted(false);
+			entry.getValue().setText(entry.getKey());
+		}
+
 		moduleButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmModuleButton);
 		moduleButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmModuleButton);
 		moduleButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegModuleButton);
@@ -107,9 +102,7 @@ public class Display {
 
 		for (JButton jbutton : moduleButtonsMap.values()) {
 			jbutton.setFont(new Font("Arial", Font.BOLD, 14));
-
 			jbutton.setFocusPainted(false);
-
 		}
 
 		currentTemperatureButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmCurrentTemperatureButton);
@@ -120,7 +113,6 @@ public class Display {
 
 		for (JButton jbutton : currentTemperatureButtonsMap.values()) {
 			jbutton.setFocusPainted(false);
-
 		}
 
 		takenActionButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmActionTakenButton);
@@ -131,7 +123,6 @@ public class Display {
 
 		for (JButton jbutton : takenActionButtonsMap.values()) {
 			jbutton.setFocusPainted(false);
-
 		}
 
 		progressStatusButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmProgressStatusButton);
@@ -142,7 +133,6 @@ public class Display {
 
 		for (JButton jbutton : progressStatusButtonsMap.values()) {
 			jbutton.setFocusPainted(false);
-
 		}
 
 		updatedTemperatureButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmUpdatedTemperatureButton);
@@ -153,7 +143,6 @@ public class Display {
 
 		for (JButton jbutton : updatedTemperatureButtonsMap.values()) {
 			jbutton.setFocusPainted(false);
-
 		}
 
 	}
