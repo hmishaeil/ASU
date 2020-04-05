@@ -13,5 +13,5 @@ public class RightArmWriteThread {
 	public void execute() {
 		this.writeThread.start();
 	}
-	
+
 }

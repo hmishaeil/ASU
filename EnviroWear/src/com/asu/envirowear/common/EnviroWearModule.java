@@ -20,4 +20,10 @@ public class EnviroWearModule {
 	public static final Integer LEFT_LEG_MAX_TEMEPERATURE_THRESHOLD = 99;
 	public static final Integer RIGHT_LEG_MAX_TEMEPERATURE_THRESHOLD = 99;
 
+	public static final Integer ChestInputTemperatures[] = { 2, 3, 5, 6, 7, 8, 9, 9, 10, 190 };
+	public static final Integer LeftArmInputTemperatures[] = { 2, 3, 5, 6, 7, 8, 9, 9, 10, 190 };
+	public static final Integer RightArmInputTemperatures[] = { 2, 3, 5, 6, 7, 8, 9, 9, 10, 190 };
+	public static final Integer LeftLegInputTemperatures[] = { 2, 3, 5, 6, 7, 8, 9, 9, 10, 190 };
+	public static final Integer RightLegInputTemperatures[] = { 2, 3, 5, 6, 7, 8, 9, 9, 10, 190 };
+
 }

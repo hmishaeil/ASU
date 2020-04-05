@@ -13,5 +13,5 @@ public class LeftLegWriteThread {
 	public void execute() {
 		this.writeThread.start();
 	}
-	
+
 }

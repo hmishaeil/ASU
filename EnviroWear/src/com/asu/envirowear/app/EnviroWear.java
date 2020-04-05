@@ -94,7 +94,7 @@ public class EnviroWear {
 				leftLegTemperatureController);
 		LeftLegWriteThread leftLegWriteThread = new LeftLegWriteThread(leftLegWriteRunnable);
 		leftLegWriteThread.execute();
-		
+
 		// right leg
 		Object rightLegLockObject = new Object();
 

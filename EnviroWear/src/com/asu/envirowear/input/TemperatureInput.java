@@ -1,62 +1,46 @@
 package com.asu.envirowear.input;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import com.asu.envirowear.common.EnviroWearModule;
 
 public class TemperatureInput {
 
+	private Integer currentTemperature = 0;
 	String module = "";
-	private Integer lineNumber = 1;
-	private String temperatureInputs = null;
+	private Integer index = 0;
 
 	public TemperatureInput(String module) {
 		this.module = module;
 	}
 
-	private String[] readCurrentTemperatureInputs() {
-		try {
-			this.temperatureInputs = Files.readAllLines(Paths.get("resources/temperature.csv")).get(this.lineNumber);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		if (this.lineNumber == 10) {
-			this.lineNumber = 1;
-		} else {
-			this.lineNumber++;
-		}
-
-		return this.temperatureInputs.split(",");
-
-	}
-
 	public Integer getCurrentTemperature() {
-		Integer module_index = 0;
-		String[] temperatures = readCurrentTemperatureInputs();
 
 		switch (module) {
 		case EnviroWearModule.CHEST:
-			module_index = 1;
+			currentTemperature = EnviroWearModule.ChestInputTemperatures[this.index];
 			break;
 		case EnviroWearModule.LEFT_ARM:
-			module_index = 2;
+			currentTemperature = EnviroWearModule.LeftArmInputTemperatures[this.index];
 			break;
 		case EnviroWearModule.RIGHT_ARM:
-			module_index = 3;
+			currentTemperature = EnviroWearModule.RightArmInputTemperatures[this.index];
 			break;
 		case EnviroWearModule.LEFT_LEG:
-			module_index = 4;
+			currentTemperature = EnviroWearModule.LeftLegInputTemperatures[this.index];
 			break;
 		case EnviroWearModule.RIGHT_LEG:
-			module_index = 5;
+			currentTemperature = EnviroWearModule.RightLegInputTemperatures[this.index];
 			break;
 		default:
 			throw new RuntimeException("Unknown module category");
 		}
 
-		return Integer.parseInt(temperatures[module_index]);
+		if (this.index == 9) {
+			this.index = 0;
+		} else {
+			this.index++;
+		}
+
+		return currentTemperature;
 	}
 
 }
