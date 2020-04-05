@@ -27,7 +27,7 @@ public class ChestWriteRunnable implements Runnable {
 		while (!Thread.currentThread().isInterrupted()) {
 
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -46,11 +46,9 @@ public class ChestWriteRunnable implements Runnable {
 					temperatureController.temperatureInRange();
 					break;
 				default:
-					System.out.println("something bad happened!!!");
-					break;
+					throw new RuntimeException("Unknown temperature range category");
 				}
 
-				System.out.println("notifying...");
 				this.lockObject.notify();
 			}
 		}

@@ -5,7 +5,6 @@ import javax.swing.JButton;
 
 import com.asu.envirowear.common.EnviroWearModule;
 import com.asu.envirowear.input.TemperatureInput;
-import com.asu.envirowear.panel.Display;
 import com.asu.envirowear.temperature.TemperatureController;
 
 public class ChestReadRunnable implements Runnable {
@@ -14,7 +13,7 @@ public class ChestReadRunnable implements Runnable {
 	TemperatureInput chestTemperatureInput = null;
 
 	TemperatureController temperatureController = null;
-	JButton button = null;
+	JButton currentTemperatureButton = null;
 
 	Integer currentChessTemperature = 0;
 
@@ -23,7 +22,8 @@ public class ChestReadRunnable implements Runnable {
 		this.lock = lock;
 		this.chestTemperatureInput = chestTemperatureInput;
 		this.temperatureController = temperatureController;
-		this.button = this.temperatureController.getDisplay().getMapReader().get(EnviroWearModule.CHEST);
+		this.currentTemperatureButton = this.temperatureController.getDisplay().getMapReader()
+				.get(EnviroWearModule.CHEST);
 
 	}
 
@@ -38,25 +38,23 @@ public class ChestReadRunnable implements Runnable {
 
 				this.temperatureController.setCurrentTemperature(currentChessTemperature);
 
-				this.button.setText(Integer.toString(currentChessTemperature));
+				this.currentTemperatureButton.setText(Integer.toString(currentChessTemperature));
 
 				switch (this.temperatureController.getCurrentTemperatureRangeStatus()) {
 				case ABOVE_RANGE:
-					this.button.setForeground(new Color(255, 0, 0));
+					this.currentTemperatureButton.setForeground(new Color(255, 0, 0));
 					break;
 				case BELOW_RANGE:
-					this.button.setForeground(new Color(255, 179, 0));
+					this.currentTemperatureButton.setForeground(new Color(255, 179, 0));
 					break;
 				case IN_RANGE:
-					this.button.setForeground(new Color(0, 179, 0));
+					this.currentTemperatureButton.setForeground(new Color(0, 179, 0));
 					break;
 				default:
-					System.out.println("something bad happened!!!");
-					break;
+					throw new RuntimeException("Unknown temperature range category");
 				}
 
 				try {
-					System.out.println("going to wait mode...");
 					this.lock.wait();
 				} catch (Exception e) {
 					e.printStackTrace();

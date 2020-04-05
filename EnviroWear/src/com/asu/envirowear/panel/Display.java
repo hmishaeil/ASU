@@ -17,51 +17,51 @@ public class Display {
 	private JFrame frame = null;
 	private JPanel panel;
 
-	private JButton headerButtonInfo = new JButton("Module/ Temperature Threshold [MIN, MAX]");
+	private JButton headerModuleButton = new JButton("Module/ Temperature Threshold [MIN, MAX]");
 
-	private JButton leftArmButtonInfo = new JButton(EnviroWearModule.LEFT_ARM);
-	private JButton rightArmButtonInfo = new JButton(EnviroWearModule.RIGHT_ARM);
-	private JButton chestButtonInfo = new JButton(EnviroWearModule.CHEST);
-	private JButton leftlegButtonInfo = new JButton(EnviroWearModule.LEFT_LEG);
-	private JButton rightlegButtonInfo = new JButton(EnviroWearModule.RIGHT_LEG);
+	private JButton leftArmModuleButton = new JButton(EnviroWearModule.LEFT_ARM);
+	private JButton rightArmModuleButton = new JButton(EnviroWearModule.RIGHT_ARM);
+	private JButton chestModuleButton = new JButton(EnviroWearModule.CHEST);
+	private JButton leftLegModuleButton = new JButton(EnviroWearModule.LEFT_LEG);
+	private JButton rightLegModuleButton = new JButton(EnviroWearModule.RIGHT_LEG);
 
-	private JButton infoButton = new JButton("Current Temperature (\u2109)");
+	private JButton headerCurrentTemperatureButton = new JButton("Current Temperature (\u2109)");
 
-	private JButton leftArmButtonReader = new JButton();
-	private JButton rightArmButtonReader = new JButton();
-	private JButton chestButtonReader = new JButton();
-	private JButton leftlegButtonReader = new JButton();
-	private JButton rightlegButtonReader = new JButton();
+	private JButton leftArmCurrentTemperatureButton = new JButton();
+	private JButton rightArmCurrentTemperatureButton = new JButton();
+	private JButton chestCurrentTemperatureButton = new JButton();
+	private JButton leftLegCurrentTemperatureButton = new JButton();
+	private JButton rightLegCurrentTemperatureButton = new JButton();
 
-	private JButton infoButtonCtrl = new JButton("Action Taken");
+	private JButton headerActionTakenButton = new JButton("Action Taken");
 
-	private JButton leftArmButtonCtrl = new JButton();
-	private JButton rightArmButtonCtrl = new JButton();
-	private JButton chestButtonCtrl = new JButton();
-	private JButton leftlegButtonCtrl = new JButton();
-	private JButton rightlegButtonCtrl = new JButton();
+	private JButton leftArmActionTakenButton = new JButton();
+	private JButton rightArmActionTakenButton = new JButton();
+	private JButton chestActionTakenButton = new JButton();
+	private JButton leftLegActionTakenButton = new JButton();
+	private JButton rightLegActionTakenButton = new JButton();
 
-	private JButton infoButtonProgress = new JButton("Process Status");
+	private JButton headerProgressStatusButton = new JButton("Process Status");
 
-	private JButton leftArmButtonProgress = new JButton();
-	private JButton rightArmButtonProgress = new JButton();
-	private JButton chestButtonProgress = new JButton();
-	private JButton leftlegButtonProgress = new JButton();
-	private JButton rightlegButtonProgress = new JButton();
+	private JButton leftArmProgressStatusButton = new JButton();
+	private JButton rightArmProgressStatusButton = new JButton();
+	private JButton chestProgressStatusButton = new JButton();
+	private JButton leftLegProgressStatusButton = new JButton();
+	private JButton rightLegProgressStatusButton = new JButton();
 
-	private JButton infoButtonNew = new JButton("Updated Temperature (\u2109)");
+	private JButton headerUpdatedTemperatureButton = new JButton("Updated Temperature (\u2109)");
 
-	private JButton leftArmButtonNew = new JButton();
-	private JButton rightArmButtonNew = new JButton();
-	private JButton chestButtonNew = new JButton();
-	private JButton leftLegButtonNew = new JButton();
-	private JButton rightLegButtonNew = new JButton();
+	private JButton leftArmUpdatedTemperatureButton = new JButton();
+	private JButton rightArmUpdatedTemperatureButton = new JButton();
+	private JButton chestUpdatedTemperatureButton = new JButton();
+	private JButton leftLegUpdatedTemperatureButton = new JButton();
+	private JButton rightLegUpdatedTemperatureButton = new JButton();
 
-	private Map<String, JButton> mapInfo = new HashMap<String, JButton>();
-	private Map<String, JButton> mapReader = new HashMap<String, JButton>();
-	private Map<String, JButton> mapCtrl = new HashMap<String, JButton>();
-	private Map<String, JButton> mapProgress = new HashMap<String, JButton>();
-	private Map<String, JButton> mapNew = new HashMap<String, JButton>();
+	private Map<String, JButton> moduleButtonsMap = new HashMap<String, JButton>();
+	private Map<String, JButton> currentTemperatureButtonsMap = new HashMap<String, JButton>();
+	private Map<String, JButton> takenActionButtonsMap = new HashMap<String, JButton>();
+	private Map<String, JButton> progressStatusButtonsMap = new HashMap<String, JButton>();
+	private Map<String, JButton> updatedTemperatureButtonsMap = new HashMap<String, JButton>();
 
 	public Display() {
 		initFrame();
@@ -72,11 +72,18 @@ public class Display {
 	}
 
 	public void styleInfoButton() {
-		headerButtonInfo.setFont(new Font("Arial", Font.BOLD, 14));
-		infoButton.setFont(new Font("Arial", Font.BOLD, 14));
-		infoButtonCtrl.setFont(new Font("Arial", Font.BOLD, 14));
-		infoButtonProgress.setFont(new Font("Arial", Font.BOLD, 14));
-		infoButtonNew.setFont(new Font("Arial", Font.BOLD, 14));
+
+		headerModuleButton.setFont(new Font("Arial", Font.BOLD, 14));
+		headerModuleButton.setFocusPainted(false);
+		headerCurrentTemperatureButton.setFont(new Font("Arial", Font.BOLD, 14));
+		headerCurrentTemperatureButton.setFocusPainted(false);
+		headerActionTakenButton.setFont(new Font("Arial", Font.BOLD, 14));
+		headerActionTakenButton.setFocusPainted(false);
+		headerProgressStatusButton.setFont(new Font("Arial", Font.BOLD, 14));
+		headerProgressStatusButton.setFocusPainted(false);
+		headerUpdatedTemperatureButton.setFont(new Font("Arial", Font.BOLD, 14));
+		headerUpdatedTemperatureButton.setFocusPainted(false);
+
 	}
 
 	public void initFrame() {
@@ -88,82 +95,106 @@ public class Display {
 	public void initPanel() {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 5));
-		panel.setPreferredSize(new Dimension(1600, 350));
+		panel.setPreferredSize(new Dimension(1600, 300));
 	}
 
 	public void initMap() {
-		mapInfo.put(EnviroWearModule.LEFT_ARM, leftArmButtonInfo);
-		mapInfo.put(EnviroWearModule.RIGHT_ARM, rightArmButtonInfo);
-		mapInfo.put(EnviroWearModule.LEFT_LEG, leftlegButtonInfo);
-		mapInfo.put(EnviroWearModule.RIGHT_LEG, rightlegButtonInfo);
-		mapInfo.put(EnviroWearModule.CHEST, chestButtonInfo);
+		moduleButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmModuleButton);
+		moduleButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmModuleButton);
+		moduleButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegModuleButton);
+		moduleButtonsMap.put(EnviroWearModule.RIGHT_LEG, rightLegModuleButton);
+		moduleButtonsMap.put(EnviroWearModule.CHEST, chestModuleButton);
 
-		for (JButton jbutton : mapInfo.values()) {
+		for (JButton jbutton : moduleButtonsMap.values()) {
 			jbutton.setFont(new Font("Arial", Font.BOLD, 14));
+
+			jbutton.setFocusPainted(false);
+
 		}
 
-		mapReader.put(EnviroWearModule.LEFT_ARM, leftArmButtonReader);
-		mapReader.put(EnviroWearModule.RIGHT_ARM, rightArmButtonReader);
-		mapReader.put(EnviroWearModule.LEFT_LEG, leftlegButtonReader);
-		mapReader.put(EnviroWearModule.RIGHT_LEG, rightlegButtonReader);
-		mapReader.put(EnviroWearModule.CHEST, chestButtonReader);
+		currentTemperatureButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmCurrentTemperatureButton);
+		currentTemperatureButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmCurrentTemperatureButton);
+		currentTemperatureButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegCurrentTemperatureButton);
+		currentTemperatureButtonsMap.put(EnviroWearModule.RIGHT_LEG, rightLegCurrentTemperatureButton);
+		currentTemperatureButtonsMap.put(EnviroWearModule.CHEST, chestCurrentTemperatureButton);
 
-		mapCtrl.put(EnviroWearModule.LEFT_ARM, leftArmButtonCtrl);
-		mapCtrl.put(EnviroWearModule.RIGHT_ARM, rightArmButtonCtrl);
-		mapCtrl.put(EnviroWearModule.LEFT_LEG, leftlegButtonCtrl);
-		mapCtrl.put(EnviroWearModule.RIGHT_LEG, rightlegButtonCtrl);
-		mapCtrl.put(EnviroWearModule.CHEST, chestButtonCtrl);
+		for (JButton jbutton : currentTemperatureButtonsMap.values()) {
+			jbutton.setFocusPainted(false);
 
-		mapProgress.put(EnviroWearModule.LEFT_ARM, leftArmButtonProgress);
-		mapProgress.put(EnviroWearModule.RIGHT_ARM, rightArmButtonProgress);
-		mapProgress.put(EnviroWearModule.LEFT_LEG, leftlegButtonProgress);
-		mapProgress.put(EnviroWearModule.RIGHT_LEG, rightlegButtonProgress);
-		mapProgress.put(EnviroWearModule.CHEST, chestButtonProgress);
+		}
 
-		mapNew.put(EnviroWearModule.LEFT_ARM, leftArmButtonNew);
-		mapNew.put(EnviroWearModule.RIGHT_ARM, rightArmButtonNew);
-		mapNew.put(EnviroWearModule.LEFT_LEG, leftLegButtonNew);
-		mapNew.put(EnviroWearModule.RIGHT_LEG, rightLegButtonNew);
-		mapNew.put(EnviroWearModule.CHEST, chestButtonNew);
+		takenActionButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmActionTakenButton);
+		takenActionButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmActionTakenButton);
+		takenActionButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegActionTakenButton);
+		takenActionButtonsMap.put(EnviroWearModule.RIGHT_LEG, rightLegActionTakenButton);
+		takenActionButtonsMap.put(EnviroWearModule.CHEST, chestActionTakenButton);
+
+		for (JButton jbutton : takenActionButtonsMap.values()) {
+			jbutton.setFocusPainted(false);
+
+		}
+
+		progressStatusButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmProgressStatusButton);
+		progressStatusButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmProgressStatusButton);
+		progressStatusButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegProgressStatusButton);
+		progressStatusButtonsMap.put(EnviroWearModule.RIGHT_LEG, rightLegProgressStatusButton);
+		progressStatusButtonsMap.put(EnviroWearModule.CHEST, chestProgressStatusButton);
+
+		for (JButton jbutton : progressStatusButtonsMap.values()) {
+			jbutton.setFocusPainted(false);
+
+		}
+
+		updatedTemperatureButtonsMap.put(EnviroWearModule.LEFT_ARM, leftArmUpdatedTemperatureButton);
+		updatedTemperatureButtonsMap.put(EnviroWearModule.RIGHT_ARM, rightArmUpdatedTemperatureButton);
+		updatedTemperatureButtonsMap.put(EnviroWearModule.LEFT_LEG, leftLegUpdatedTemperatureButton);
+		updatedTemperatureButtonsMap.put(EnviroWearModule.RIGHT_LEG, rightLegUpdatedTemperatureButton);
+		updatedTemperatureButtonsMap.put(EnviroWearModule.CHEST, chestUpdatedTemperatureButton);
+
+		for (JButton jbutton : updatedTemperatureButtonsMap.values()) {
+			jbutton.setFocusPainted(false);
+
+		}
+
 	}
 
 	public void draw() {
 
-		panel.add(headerButtonInfo);
-		panel.add(infoButton);
-		panel.add(infoButtonCtrl);
-		panel.add(infoButtonProgress);
-		panel.add(infoButtonNew);
+		panel.add(headerModuleButton);
+		panel.add(headerCurrentTemperatureButton);
+		panel.add(headerActionTakenButton);
+		panel.add(headerProgressStatusButton);
+		panel.add(headerUpdatedTemperatureButton);
 
-		panel.add(leftArmButtonInfo);
-		panel.add(leftArmButtonReader);
-		panel.add(leftArmButtonCtrl);
-		panel.add(leftArmButtonProgress);
-		panel.add(leftArmButtonNew);
+		panel.add(leftArmModuleButton);
+		panel.add(leftArmCurrentTemperatureButton);
+		panel.add(leftArmActionTakenButton);
+		panel.add(leftArmProgressStatusButton);
+		panel.add(leftArmUpdatedTemperatureButton);
 
-		panel.add(rightArmButtonInfo);
-		panel.add(rightArmButtonReader);
-		panel.add(rightArmButtonCtrl);
-		panel.add(rightArmButtonProgress);
-		panel.add(rightArmButtonNew);
+		panel.add(rightArmModuleButton);
+		panel.add(rightArmCurrentTemperatureButton);
+		panel.add(rightArmActionTakenButton);
+		panel.add(rightArmProgressStatusButton);
+		panel.add(rightArmUpdatedTemperatureButton);
 
-		panel.add(chestButtonInfo);
-		panel.add(chestButtonReader);
-		panel.add(chestButtonCtrl);
-		panel.add(chestButtonProgress);
-		panel.add(chestButtonNew);
+		panel.add(chestModuleButton);
+		panel.add(chestCurrentTemperatureButton);
+		panel.add(chestActionTakenButton);
+		panel.add(chestProgressStatusButton);
+		panel.add(chestUpdatedTemperatureButton);
 
-		panel.add(leftlegButtonInfo);
-		panel.add(leftlegButtonReader);
-		panel.add(leftlegButtonCtrl);
-		panel.add(leftlegButtonProgress);
-		panel.add(leftLegButtonNew);
+		panel.add(leftLegModuleButton);
+		panel.add(leftLegCurrentTemperatureButton);
+		panel.add(leftLegActionTakenButton);
+		panel.add(leftLegProgressStatusButton);
+		panel.add(leftLegUpdatedTemperatureButton);
 
-		panel.add(rightlegButtonInfo);
-		panel.add(rightlegButtonReader);
-		panel.add(rightlegButtonCtrl);
-		panel.add(rightlegButtonProgress);
-		panel.add(rightLegButtonNew);
+		panel.add(rightLegModuleButton);
+		panel.add(rightLegCurrentTemperatureButton);
+		panel.add(rightLegActionTakenButton);
+		panel.add(rightLegProgressStatusButton);
+		panel.add(rightLegUpdatedTemperatureButton);
 
 		frame.add(panel);
 		frame.pack();
@@ -172,23 +203,23 @@ public class Display {
 	}
 
 	public Map<String, JButton> getMapInfo() {
-		return mapInfo;
+		return this.moduleButtonsMap;
 	}
 
 	public Map<String, JButton> getMapCtrl() {
-		return mapCtrl;
+		return this.takenActionButtonsMap;
 	}
 
 	public Map<String, JButton> getMapProgress() {
-		return mapProgress;
+		return this.progressStatusButtonsMap;
 	}
 
 	public Map<String, JButton> getMapNew() {
-		return mapNew;
+		return this.updatedTemperatureButtonsMap;
 	}
 
 	public Map<String, JButton> getMapReader() {
-		return mapReader;
+		return this.currentTemperatureButtonsMap;
 	}
 
 }

@@ -1,10 +1,8 @@
 package com.asu.envirowear.input;
 
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import com.asu.envirowear.common.EnviroWearModule;
 
 public class TemperatureInput {
@@ -19,7 +17,7 @@ public class TemperatureInput {
 
 	private String[] readCurrentTemperatureInputs() {
 		try {
-			this.temperatureInputs = Files.readAllLines(Paths.get("resource/temperature.csv")).get(this.lineNumber);
+			this.temperatureInputs = Files.readAllLines(Paths.get("resources/temperature.csv")).get(this.lineNumber);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,8 +53,7 @@ public class TemperatureInput {
 			module_index = 5;
 			break;
 		default:
-			System.out.println("somthing bad happened!");
-			break;
+			throw new RuntimeException("Unknown module category");
 		}
 
 		return Integer.parseInt(temperatures[module_index]);

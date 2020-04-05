@@ -16,15 +16,18 @@ public class EnviroWear {
 		Display display = new Display();
 
 		Object chestLockObject = new Object();
-		
-		TemperatureInput chestTemperatureInput = new TemperatureInput(EnviroWearModule.CHEST);
-		TemperatureController chestTemperatureController = new TemperatureController(EnviroWearModule.CHEST, display);
 
-		ChestReadRunnable chestReadRunnable = new ChestReadRunnable(chestLockObject, chestTemperatureInput,chestTemperatureController);
+		TemperatureInput chestTemperatureInput = new TemperatureInput(EnviroWearModule.CHEST);
+		TemperatureController chestTemperatureController = new TemperatureController(EnviroWearModule.CHEST, display,
+				95, 100);
+
+		ChestReadRunnable chestReadRunnable = new ChestReadRunnable(chestLockObject, chestTemperatureInput,
+				chestTemperatureController);
 		ChestReadThread chestReadThread = new ChestReadThread(chestReadRunnable);
 		chestReadThread.execute();
 
-		ChestWriteRunnable chestWriteRunnable = new ChestWriteRunnable(chestLockObject, chestTemperatureInput, chestTemperatureController);
+		ChestWriteRunnable chestWriteRunnable = new ChestWriteRunnable(chestLockObject, chestTemperatureInput,
+				chestTemperatureController);
 		ChestWriteThread chestWriteThread = new ChestWriteThread(chestWriteRunnable);
 		chestWriteThread.execute();
 
