@@ -1,6 +1,6 @@
 package com.asu.envirowear.runable;
 
-import com.asu.envirowear.temperature.TemperatureController;
+import com.asu.envirowear.controller.TemperatureController;
 
 public class RightLegWriteRunnable implements Runnable {
 

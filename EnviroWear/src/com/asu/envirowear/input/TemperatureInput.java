@@ -4,7 +4,6 @@ import com.asu.envirowear.common.EnviroWearModule;
 
 public class TemperatureInput {
 
-	private Integer currentTemperature = 0;
 	String module = "";
 	private Integer index = 0;
 
@@ -13,6 +12,8 @@ public class TemperatureInput {
 	}
 
 	public Integer getCurrentTemperature() {
+
+		Integer currentTemperature = 0;
 
 		switch (module) {
 		case EnviroWearModule.CHEST:

@@ -58,12 +58,12 @@ public class Display {
 	private JButton leftLegUpdatedTemperatureButton = new JButton();
 	private JButton rightLegUpdatedTemperatureButton = new JButton();
 
-	private Map<String, JButton> headerButtonsMap = new HashMap<String, JButton>();
-	private Map<String, JButton> moduleButtonsMap = new HashMap<String, JButton>();
-	private Map<String, JButton> currentTemperatureButtonsMap = new HashMap<String, JButton>();
-	private Map<String, JButton> takenActionButtonsMap = new HashMap<String, JButton>();
-	private Map<String, JButton> progressStatusButtonsMap = new HashMap<String, JButton>();
-	private Map<String, JButton> updatedTemperatureButtonsMap = new HashMap<String, JButton>();
+	private Map<String, JButton> headerButtonsMap = new HashMap<>();
+	private Map<String, JButton> moduleButtonsMap = new HashMap<>();
+	private Map<String, JButton> currentTemperatureButtonsMap = new HashMap<>();
+	private Map<String, JButton> takenActionButtonsMap = new HashMap<>();
+	private Map<String, JButton> progressStatusButtonsMap = new HashMap<>();
+	private Map<String, JButton> updatedTemperatureButtonsMap = new HashMap<>();
 
 	public Display() {
 

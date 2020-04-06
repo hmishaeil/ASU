@@ -1,8 +1,8 @@
 package com.asu.envirowear.runable;
 
 import com.asu.envirowear.common.EnviroWearModule;
+import com.asu.envirowear.controller.TemperatureController;
 import com.asu.envirowear.input.TemperatureInput;
-import com.asu.envirowear.temperature.TemperatureController;
 
 public class LeftLegReadRunnable implements Runnable {
 
@@ -26,12 +26,6 @@ public class LeftLegReadRunnable implements Runnable {
 				try {
 					this.lock.wait();
 				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 

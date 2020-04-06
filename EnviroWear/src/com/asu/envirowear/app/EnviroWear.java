@@ -1,6 +1,7 @@
 package com.asu.envirowear.app;
 
 import com.asu.envirowear.common.EnviroWearModule;
+import com.asu.envirowear.controller.TemperatureController;
 import com.asu.envirowear.panel.Display;
 import com.asu.envirowear.runable.ChestReadRunnable;
 import com.asu.envirowear.runable.ChestWriteRunnable;
@@ -12,7 +13,6 @@ import com.asu.envirowear.runable.RightArmReadRunnable;
 import com.asu.envirowear.runable.RightArmWriteRunnable;
 import com.asu.envirowear.runable.RightLegReadRunnable;
 import com.asu.envirowear.runable.RightLegWriteRunnable;
-import com.asu.envirowear.temperature.TemperatureController;
 import com.asu.envirowear.thread.ChestReadThread;
 import com.asu.envirowear.thread.ChestWriteThread;
 import com.asu.envirowear.thread.LeftArmReadThread;
@@ -26,7 +26,7 @@ import com.asu.envirowear.thread.RightLegWriteThread;
 
 public class EnviroWear {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 
 		Display display = new Display();
 

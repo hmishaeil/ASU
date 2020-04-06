@@ -1,6 +1,9 @@
-package com.asu.envirowear.temperature;
+package com.asu.envirowear.controller;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import com.asu.envirowear.panel.Display;
@@ -20,12 +23,27 @@ public class TemperatureController {
 	String module;
 	Display display;
 
-	public static enum TemperatureStatus {
+	String log;
+
+	File file = null;
+	FileWriter fileWriter = null;
+
+	public enum TemperatureStatus {
 		ABOVE_RANGE, BELOW_RANGE, IN_RANGE
 	}
 
 	public TemperatureController(String module, Display display, Integer minTemperatureThreshold,
 			Integer maxTemperatureThreshold) {
+
+		file = new File(module.replaceAll("\\s", "") + ".log");
+		if (file.exists() && file.isFile()) {
+			file.delete();
+		}
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		this.module = module;
 		this.display = display;
@@ -87,7 +105,10 @@ public class TemperatureController {
 	}
 
 	public void decreaseTemperature() {
+
 		int unit = this.currentTemperature - this.maxTemperatureThreshold;
+
+		log = this.currentTemperature + ";" + unit + ";" + this.maxTemperatureThreshold + ";";
 
 		this.actionTakenButton.setText(
 				"Decreasing Temperature from " + this.currentTemperature + " to " + this.maxTemperatureThreshold);
@@ -108,12 +129,18 @@ public class TemperatureController {
 			}
 
 		}
+
 		this.progressStatusButton.setText("DONE!");
+
+		log += this.currentTemperature;
+		logger();
 
 	}
 
 	public void increaseTemperature() {
 		int unit = this.minTemperatureThreshold - this.currentTemperature;
+
+		log = this.currentTemperature + ";" + unit + ";" + this.minTemperatureThreshold + ";";
 
 		this.actionTakenButton.setText(
 				"Increasing Temperature from " + this.currentTemperature + " to " + this.minTemperatureThreshold);
@@ -130,13 +157,24 @@ public class TemperatureController {
 			}
 
 		}
+
+		log += this.currentTemperature;
 		this.progressStatusButton.setText("DONE!");
+
+		logger();
+
 	}
 
 	public void temperatureInRange() {
+
+		log = this.currentTemperature + ";0;N/A;N/A";
+
 		this.actionTakenButton.setText("Temperature Is Acceptable. No Action Required.");
 		this.updatedTemperatureButton.setText("N/A");
 		this.progressStatusButton.setText("N/A");
+
+		logger();
+
 	}
 
 	public void initButtonsText() {
@@ -158,6 +196,27 @@ public class TemperatureController {
 			break;
 		default:
 			throw new RuntimeException("Unknown temperature range category");
+		}
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void logger() {
+		try {
+			fileWriter = new FileWriter(file, true);
+			fileWriter.write(log + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fileWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
